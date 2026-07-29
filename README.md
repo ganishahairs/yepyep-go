@@ -24,3 +24,10 @@ This makes it ideal for testing ideas without spending much.
 function setValue(uint256 newValue) public {
     value = newValue;
 }
+
+### Get Value Function
+
+```solidity
+function getValue() public view returns (uint256) {
+    return value;
+}

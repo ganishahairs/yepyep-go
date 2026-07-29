@@ -31,3 +31,13 @@ function setValue(uint256 newValue) public {
 function getValue() public view returns (uint256) {
     return value;
 }
+
+### ValueUpdated Event
+
+```solidity
+event ValueUpdated(address indexed sender, uint256 newValue);
+
+function setValue(uint256 newValue) public {
+    value = newValue;
+    emit ValueUpdated(msg.sender, newValue);
+}

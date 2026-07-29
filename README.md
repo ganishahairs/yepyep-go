@@ -48,3 +48,11 @@ function setValue(uint256 newValue) public {
 constructor(uint256 initialValue) {
     value = initialValue;
 }
+
+### Only Owner Modifier
+
+```solidity
+modifier onlyOwner() {
+    require(msg.sender == owner, "Not the owner");
+    _;
+}

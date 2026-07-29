@@ -17,3 +17,10 @@ Collecting useful links as I go.
 One of the biggest advantages of Base is the very low transaction cost.  
 
 This makes it ideal for testing ideas without spending much.
+
+### Adding setValue Function
+
+```solidity
+function setValue(uint256 newValue) public {
+    value = newValue;
+}

@@ -56,3 +56,13 @@ modifier onlyOwner() {
     require(msg.sender == owner, "Not the owner");
     _;
 }
+
+### OwnershipTransferred Event
+
+```solidity
+event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);
+
+function transferOwnership(address newOwner) public onlyOwner {
+    emit OwnershipTransferred(owner, newOwner);
+    owner = newOwner;
+}

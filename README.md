@@ -11,3 +11,9 @@ I'm starting this repo to track my learning journey on this network.
 - Base Explorer: https://base.blockscout.com  
 
 Collecting useful links as I go.
+
+### Low Fees on Base
+
+One of the biggest advantages of Base is the very low transaction cost.  
+
+This makes it ideal for testing ideas without spending much.

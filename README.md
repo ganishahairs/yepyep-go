@@ -41,3 +41,10 @@ function setValue(uint256 newValue) public {
     value = newValue;
     emit ValueUpdated(msg.sender, newValue);
 }
+
+### Constructor with Initial Value
+
+```solidity
+constructor(uint256 initialValue) {
+    value = initialValue;
+}

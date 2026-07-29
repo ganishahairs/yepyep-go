@@ -73,3 +73,15 @@ function transferOwnership(address newOwner) public onlyOwner {
 function getBalance(address user) public view returns (uint256) {
     return balances[user];
 }
+
+### Withdraw Event
+
+```solidity
+event Withdraw(address indexed user, uint256 amount);
+
+function withdraw(uint256 amount) public {
+    require(balances[msg.sender] >= amount, "Insufficient balance");
+    balances[msg.sender] -= amount;
+    payable(msg.sender).transfer(amount);
+    emit Withdraw(msg.sender, amount);
+}

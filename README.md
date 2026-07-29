@@ -85,3 +85,9 @@ function withdraw(uint256 amount) public {
     payable(msg.sender).transfer(amount);
     emit Withdraw(msg.sender, amount);
 }
+
+### Understanding require()
+
+`require()` is used to validate conditions.  
+
+If the condition is false, the transaction reverts and any changes are undone.

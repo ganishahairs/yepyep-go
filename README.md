@@ -3,3 +3,11 @@
 Base offers low fees, fast transactions, and a strong focus on developers.  
 
 I'm starting this repo to track my learning journey on this network.
+
+### Useful Resources
+
+- Base Documentation: https://docs.base.org  
+- Base Bridge: https://bridge.base.org  
+- Base Explorer: https://base.blockscout.com  
+
+Collecting useful links as I go.

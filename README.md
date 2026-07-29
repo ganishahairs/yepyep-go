@@ -1,5 +1,5 @@
-# yepyep-go
+# Why Base?
 
-edit edit
+Base offers low fees, fast transactions, and a strong focus on developers.  
 
-hello!
+I'm starting this repo to track my learning journey on this network.

@@ -66,3 +66,10 @@ function transferOwnership(address newOwner) public onlyOwner {
     emit OwnershipTransferred(owner, newOwner);
     owner = newOwner;
 }
+
+### Get Balance Function
+
+```solidity
+function getBalance(address user) public view returns (uint256) {
+    return balances[user];
+}

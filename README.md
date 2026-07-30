@@ -162,3 +162,10 @@ Avoid unbounded loops when possible.
 function getStatus() public view returns (string memory) {
     return msg.sender == owner ? "Owner" : "Not owner";
 }
+
+### Setting Enum Values
+
+```solidity
+function setStatus(Status newStatus) public {
+    currentStatus = newStatus;
+}

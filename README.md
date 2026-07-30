@@ -209,3 +209,16 @@ function burnFrom(address from, uint256 amount) public {
 
     emit Transfer(from, address(0), amount);
 }
+
+### Complete ERC20 Skeleton
+
+Core components so far:
+
+- name, symbol, decimals  
+- totalSupply  
+- balanceOf  
+- allowance  
+- transfer / transferFrom  
+- approve  
+- mint / burn  
+

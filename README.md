@@ -195,3 +195,17 @@ function transfer(address to, uint256 amount) public returns (bool) {
     balanceOf[to] += amount;
     return true;
 }
+
+### burnFrom Function
+
+```solidity
+function burnFrom(address from, uint256 amount) public {
+    require(allowance[from][msg.sender] >= amount, "Insufficient allowance");
+    require(balanceOf[from] >= amount, "Insufficient balance");
+
+    allowance[from][msg.sender] -= amount;
+    balanceOf[from] -= amount;
+    totalSupply -= amount;
+
+    emit Transfer(from, address(0), amount);
+}

@@ -185,3 +185,13 @@ The most important functions are:
 - `approve`
 - `transferFrom`
 - `allowance`
+
+### Transfer Function
+
+```solidity
+function transfer(address to, uint256 amount) public returns (bool) {
+    require(balanceOf[msg.sender] >= amount, "Insufficient balance");
+    balanceOf[msg.sender] -= amount;
+    balanceOf[to] += amount;
+    return true;
+}

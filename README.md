@@ -117,3 +117,10 @@ Without it, the transaction will revert if ETH is sent.
 To accept ETH, a function must be marked as `payable`.  
 
 Without it, the transaction will revert if ETH is sent.
+
+### Payable Fallback
+
+```solidity
+fallback() external payable {
+    balances[msg.sender] += msg.value;
+}

@@ -111,3 +111,9 @@ It is only available in payable functions.
 To accept ETH, a function must be marked as `payable`.  
 
 Without it, the transaction will revert if ETH is sent.
+
+### Receiving ETH
+
+To accept ETH, a function must be marked as `payable`.  
+
+Without it, the transaction will revert if ETH is sent.

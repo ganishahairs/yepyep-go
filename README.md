@@ -155,3 +155,10 @@ function getUserCount() public view returns (uint256) {
 Loops can consume a lot of gas if the array is large.  
 
 Avoid unbounded loops when possible.
+
+### Ternary Operator
+
+```solidity
+function getStatus() public view returns (string memory) {
+    return msg.sender == owner ? "Owner" : "Not owner";
+}

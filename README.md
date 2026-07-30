@@ -91,3 +91,11 @@ function withdraw(uint256 amount) public {
 `require()` is used to validate conditions.  
 
 If the condition is false, the transaction reverts and any changes are undone.
+
+### Using the Modifier
+
+```solidity
+function setMessage(string memory newMessage) public onlyOwner {
+    message = newMessage;
+}
+

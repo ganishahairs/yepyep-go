@@ -99,3 +99,9 @@ function setMessage(string memory newMessage) public onlyOwner {
     message = newMessage;
 }
 
+
+### Understanding msg.value
+
+`msg.value` represents the amount of ETH (in wei) sent with the transaction.
+
+It is only available in payable functions.

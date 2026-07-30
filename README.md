@@ -142,3 +142,10 @@ mapping(address => User) public users;
 function createUser() public {
     users[msg.sender] = User(msg.sender, 0, true);
 }
+
+### Array Length
+
+```solidity
+function getUserCount() public view returns (uint256) {
+    return userList.length;
+}

@@ -105,3 +105,9 @@ function setMessage(string memory newMessage) public onlyOwner {
 `msg.value` represents the amount of ETH (in wei) sent with the transaction.
 
 It is only available in payable functions.
+
+### Receiving ETH
+
+To accept ETH, a function must be marked as `payable`.  
+
+Without it, the transaction will revert if ETH is sent.

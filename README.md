@@ -133,3 +133,12 @@ fallback() external payable {
 You need to cast when necessary:
 ```solidity
 payable(user).transfer(1 ether);
+
+### Using a Struct
+
+```solidity
+mapping(address => User) public users;
+
+function createUser() public {
+    users[msg.sender] = User(msg.sender, 0, true);
+}

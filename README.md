@@ -169,3 +169,10 @@ function getStatus() public view returns (string memory) {
 function setStatus(Status newStatus) public {
     currentStatus = newStatus;
 }
+
+### Why Interfaces Are Useful
+
+Interfaces allow contracts to interact with other contracts without knowing their full code.
+
+They are essential for composability.
+

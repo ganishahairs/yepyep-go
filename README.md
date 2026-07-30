@@ -176,3 +176,12 @@ Interfaces allow contracts to interact with other contracts without knowing thei
 
 They are essential for composability.
 
+### Basic ERC20 Functions
+
+The most important functions are:
+
+- `balanceOf`
+- `transfer`
+- `approve`
+- `transferFrom`
+- `allowance`

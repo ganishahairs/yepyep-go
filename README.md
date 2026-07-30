@@ -149,3 +149,9 @@ function createUser() public {
 function getUserCount() public view returns (uint256) {
     return userList.length;
 }
+
+### Be Careful with Loops
+
+Loops can consume a lot of gas if the array is large.  
+
+Avoid unbounded loops when possible.

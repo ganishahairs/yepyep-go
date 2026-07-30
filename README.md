@@ -124,3 +124,12 @@ Without it, the transaction will revert if ETH is sent.
 fallback() external payable {
     balances[msg.sender] += msg.value;
 }
+
+### address vs address payable
+
+- `address` → cannot receive ETH directly  
+- `address payable` → can receive ETH  
+
+You need to cast when necessary:
+```solidity
+payable(user).transfer(1 ether);

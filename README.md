@@ -229,3 +229,16 @@ Core components so far:
 mapping(uint256 => address) public ownerOf;
 mapping(address => uint256) public balanceOf;
 uint256 public nextTokenId;
+
+### NFT Transfer Event
+
+```solidity
+event Transfer(address indexed from, address indexed to, uint256 indexed tokenId);
+
+function transfer(address to, uint256 tokenId) public {
+    require(ownerOf[tokenId] == msg.sender, "Not the owner");
+    ownerOf[tokenId] = to;
+    balanceOf[msg.sender] -= 1;
+    balanceOf[to] += 1;
+    emit Transfer(msg.sender, to, tokenId);
+}

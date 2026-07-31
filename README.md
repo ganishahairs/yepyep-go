@@ -222,3 +222,10 @@ Core components so far:
 - approve  
 - mint / burn  
 
+
+### Basic ERC721 Structure
+
+```solidity
+mapping(uint256 => address) public ownerOf;
+mapping(address => uint256) public balanceOf;
+uint256 public nextTokenId;

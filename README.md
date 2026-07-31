@@ -289,3 +289,13 @@ function mint() public payable whenNotPaused {
 function totalMinted() public view returns (uint256) {
     return nextTokenId;
 }
+
+### Max per Transaction
+
+```solidity
+uint256 public maxPerTx = 5;
+
+function batchMint(uint256 quantity) public payable {
+    require(quantity <= maxPerTx, "Exceeds max per transaction");
+    // rest of the mint logic
+}

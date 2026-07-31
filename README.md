@@ -253,3 +253,14 @@ function approve(address to, uint256 tokenId) public {
     getApproved[tokenId] = to;
     emit Approval(msg.sender, to, tokenId);
 }
+
+### Burn Event
+
+```solidity
+function burn(uint256 tokenId) public {
+    require(ownerOf[tokenId] == msg.sender, "Not the owner");
+    address owner = ownerOf[tokenId];
+    delete ownerOf[tokenId];
+    balanceOf[owner] -= 1;
+    emit Transfer(owner, address(0), tokenId);
+}

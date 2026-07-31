@@ -264,3 +264,10 @@ function burn(uint256 tokenId) public {
     balanceOf[owner] -= 1;
     emit Transfer(owner, address(0), tokenId);
 }
+
+### Set Mint Price
+
+```solidity
+function setMintPrice(uint256 newPrice) public onlyOwner {
+    mintPrice = newPrice;
+}

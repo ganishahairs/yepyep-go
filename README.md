@@ -282,3 +282,10 @@ function mint() public payable whenNotPaused {
     balanceOf[msg.sender] += 1;
     nextTokenId++;
 }
+
+### Total Minted View
+
+```solidity
+function totalMinted() public view returns (uint256) {
+    return nextTokenId;
+}

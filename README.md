@@ -271,3 +271,14 @@ function burn(uint256 tokenId) public {
 function setMintPrice(uint256 newPrice) public onlyOwner {
     mintPrice = newPrice;
 }
+
+### Protecting Mint with Pause
+
+```solidity
+function mint() public payable whenNotPaused {
+    require(nextTokenId < maxSupply, "Max supply reached");
+    require(msg.value >= mintPrice, "Insufficient payment");
+    ownerOf[nextTokenId] = msg.sender;
+    balanceOf[msg.sender] += 1;
+    nextTokenId++;
+}

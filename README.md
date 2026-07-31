@@ -242,3 +242,14 @@ function transfer(address to, uint256 tokenId) public {
     balanceOf[to] += 1;
     emit Transfer(msg.sender, to, tokenId);
 }
+
+### Approval Event
+
+```solidity
+event Approval(address indexed owner, address indexed approved, uint256 indexed tokenId);
+
+function approve(address to, uint256 tokenId) public {
+    require(ownerOf[tokenId] == msg.sender, "Not the owner");
+    getApproved[tokenId] = to;
+    emit Approval(msg.sender, to, tokenId);
+}

@@ -379,3 +379,11 @@ function balanceOf(address owner) public view returns (uint256) {
     require(owner != address(0), "Zero address");
     return balanceOf[owner];
 }
+
+### Lock Token Function
+
+```solidity
+function lockToken(uint256 tokenId) public {
+    require(ownerOf[tokenId] == msg.sender, "Not the owner");
+    tokenStatus[tokenId] = TokenStatus.Locked;
+}

@@ -362,3 +362,12 @@ function tokenURI(uint256 tokenId) public view returns (string memory) {
 Many marketplaces and tools check `supportsInterface` to know if a contract is a valid ERC721.
 
 Implementing it improves compatibility.
+
+### NFT Collection Constructor
+
+```solidity
+constructor(string memory _name, string memory _symbol) {
+    name = _name;
+    symbol = _symbol;
+    owner = msg.sender;
+}

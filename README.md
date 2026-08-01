@@ -327,3 +327,11 @@ function getFullTokenInfo(uint256 tokenId) public view returns (
         mintedAt[tokenId]
     );
 }
+
+### Level Up Function
+
+```solidity
+function levelUp(uint256 tokenId) public {
+    require(ownerOf[tokenId] == msg.sender, "Not the owner");
+    tokenLevel[tokenId] += 1;
+}

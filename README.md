@@ -371,3 +371,11 @@ constructor(string memory _name, string memory _symbol) {
     symbol = _symbol;
     owner = msg.sender;
 }
+
+### Safer balanceOf
+
+```solidity
+function balanceOf(address owner) public view returns (uint256) {
+    require(owner != address(0), "Zero address");
+    return balanceOf[owner];
+}

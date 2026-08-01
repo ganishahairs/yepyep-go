@@ -299,3 +299,16 @@ function batchMint(uint256 quantity) public payable {
     require(quantity <= maxPerTx, "Exceeds max per transaction");
     // rest of the mint logic
 }
+
+### Minted At Timestamp
+
+```solidity
+mapping(uint256 => uint256) public mintedAt;
+
+function mint() public payable {
+    // existing checks...
+    mintedAt[nextTokenId] = block.timestamp;
+    ownerOf[nextTokenId] = msg.sender;
+    balanceOf[msg.sender] += 1;
+    nextTokenId++;
+}

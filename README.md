@@ -409,3 +409,18 @@ function unstake(uint256 tokenId) public {
     isStaked[tokenId] = false;
     tokenStatus[tokenId] = TokenStatus.Normal;
 }
+
+### Claim Reward Function
+
+```solidity
+mapping(uint256 => uint256) public pendingRewards;
+
+function claimReward(uint256 tokenId) public {
+    require(ownerOf[tokenId] == msg.sender, "Not the owner");
+    uint256 reward = calculateReward(tokenId);
+    require(reward > 0, "No rewards");
+    
+    pendingRewards[tokenId] = 0;
+    stakedAt[tokenId] = block.timestamp; // reset timer
+    payable(msg.sender).transfer(reward);
+}

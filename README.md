@@ -348,3 +348,12 @@ function levelUp(uint256 tokenId) public {
     
     tokenLevel[tokenId] += 1;
 }
+
+### Building tokenURI
+
+```solidity
+function tokenURI(uint256 tokenId) public view returns (string memory) {
+    require(ownerOf[tokenId] != address(0), "Token does not exist");
+    return string(abi.encodePacked(baseURI, Strings.toString(tokenId), ".json"));
+}
+

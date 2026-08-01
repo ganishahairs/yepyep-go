@@ -335,3 +335,16 @@ function levelUp(uint256 tokenId) public {
     require(ownerOf[tokenId] == msg.sender, "Not the owner");
     tokenLevel[tokenId] += 1;
 }
+
+### Leveling Up with Experience
+
+```solidity
+uint256 public expPerLevel = 100;
+
+function levelUp(uint256 tokenId) public {
+    require(ownerOf[tokenId] == msg.sender, "Not the owner");
+    require(experience[tokenId] >= expPerLevel * tokenLevel[tokenId], "Not enough experience");
+    require(tokenLevel[tokenId] < maxLevel, "Max level reached");
+    
+    tokenLevel[tokenId] += 1;
+}

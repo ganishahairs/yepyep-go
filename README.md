@@ -424,3 +424,10 @@ function claimReward(uint256 tokenId) public {
     stakedAt[tokenId] = block.timestamp; // reset timer
     payable(msg.sender).transfer(reward);
 }
+
+### Set Reward Per Day
+
+```solidity
+function setRewardPerDay(uint256 newReward) public onlyOwner {
+    rewardPerDay = newReward;
+}

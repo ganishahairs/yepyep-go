@@ -357,3 +357,8 @@ function tokenURI(uint256 tokenId) public view returns (string memory) {
     return string(abi.encodePacked(baseURI, Strings.toString(tokenId), ".json"));
 }
 
+### Why supportsInterface Matters
+
+Many marketplaces and tools check `supportsInterface` to know if a contract is a valid ERC721.
+
+Implementing it improves compatibility.

@@ -312,3 +312,18 @@ function mint() public payable {
     balanceOf[msg.sender] += 1;
     nextTokenId++;
 }
+
+### Get Full Token Info
+
+```solidity
+function getFullTokenInfo(uint256 tokenId) public view returns (
+    address currentOwner,
+    address minter,
+    uint256 mintedTime
+) {
+    return (
+        ownerOf[tokenId],
+        originalMinter[tokenId],
+        mintedAt[tokenId]
+    );
+}

@@ -398,3 +398,14 @@ function lockToken(uint256 tokenId) public {
     tokenStatus[tokenId] = TokenStatus.Locked;
     emit StatusChanged(tokenId, TokenStatus.Locked);
 }
+
+### Unstake Function
+
+```solidity
+function unstake(uint256 tokenId) public {
+    require(ownerOf[tokenId] == msg.sender, "Not the owner");
+    require(isStaked[tokenId], "Not staked");
+    
+    isStaked[tokenId] = false;
+    tokenStatus[tokenId] = TokenStatus.Normal;
+}

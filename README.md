@@ -387,3 +387,14 @@ function lockToken(uint256 tokenId) public {
     require(ownerOf[tokenId] == msg.sender, "Not the owner");
     tokenStatus[tokenId] = TokenStatus.Locked;
 }
+
+### Status Change Event
+
+```solidity
+event StatusChanged(uint256 indexed tokenId, TokenStatus newStatus);
+
+function lockToken(uint256 tokenId) public {
+    require(ownerOf[tokenId] == msg.sender, "Not the owner");
+    tokenStatus[tokenId] = TokenStatus.Locked;
+    emit StatusChanged(tokenId, TokenStatus.Locked);
+}

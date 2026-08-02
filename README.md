@@ -431,3 +431,10 @@ function claimReward(uint256 tokenId) public {
 function setRewardPerDay(uint256 newReward) public onlyOwner {
     rewardPerDay = newReward;
 }
+
+### Set Minimum Stake Time
+
+```solidity
+function setMinStakeTime(uint256 newMinTime) public onlyOwner {
+    minStakeTime = newMinTime;
+}

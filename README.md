@@ -438,3 +438,11 @@ function setRewardPerDay(uint256 newReward) public onlyOwner {
 function setMinStakeTime(uint256 newMinTime) public onlyOwner {
     minStakeTime = newMinTime;
 }
+
+### Set Early Unstake Penalty
+
+```solidity
+function setEarlyUnstakePenalty(uint256 newPenalty) public onlyOwner {
+    require(newPenalty <= 50, "Penalty too high");
+    earlyUnstakePenalty = newPenalty;
+}

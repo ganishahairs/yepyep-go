@@ -469,3 +469,13 @@ function _addStakedToken(address user, uint256 tokenId) internal {
 function _removeStakedToken(address user, uint256 tokenId) internal {
     // simple removal logic (swap and pop is common)
 }
+
+### Update totalStaked on Unstake
+
+```solidity
+function unstake(uint256 tokenId) public {
+    // existing checks...
+    isStaked[tokenId] = false;
+    totalStaked -= 1;
+    stakedCount[msg.sender] -= 1;
+}

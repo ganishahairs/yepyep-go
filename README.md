@@ -458,3 +458,14 @@ function unstake(uint256 tokenId) public {
     stakedCount[msg.sender] -= 1;
     tokenStatus[tokenId] = TokenStatus.Normal;
 }
+
+### Tracking Staked Tokens per User
+
+```solidity
+function _addStakedToken(address user, uint256 tokenId) internal {
+    userStakedTokens[user].push(tokenId);
+}
+
+function _removeStakedToken(address user, uint256 tokenId) internal {
+    // simple removal logic (swap and pop is common)
+}

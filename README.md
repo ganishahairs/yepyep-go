@@ -446,3 +446,15 @@ function setEarlyUnstakePenalty(uint256 newPenalty) public onlyOwner {
     require(newPenalty <= 50, "Penalty too high");
     earlyUnstakePenalty = newPenalty;
 }
+
+### Update Staked Count on Unstake
+
+```solidity
+function unstake(uint256 tokenId) public {
+    require(ownerOf[tokenId] == msg.sender, "Not the owner");
+    require(isStaked[tokenId], "Not staked");
+
+    isStaked[tokenId] = false;
+    stakedCount[msg.sender] -= 1;
+    tokenStatus[tokenId] = TokenStatus.Normal;
+}

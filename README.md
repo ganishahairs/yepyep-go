@@ -512,3 +512,19 @@ So far you have practiced:
 - NFT standards  
 - Staking mechanics  
 - Basic security patterns  
+
+### Breeding Cooldown
+
+```solidity
+mapping(uint256 => uint256) public lastBred;
+
+uint256 public breedingCooldown = 7 days;
+
+function breed(uint256 tokenId1, uint256 tokenId2) public {
+    require(block.timestamp >= lastBred[tokenId1] + breedingCooldown, "Cooldown active");
+    require(block.timestamp >= lastBred[tokenId2] + breedingCooldown, "Cooldown active");
+    
+    lastBred[tokenId1] = block.timestamp;
+    lastBred[tokenId2] = block.timestamp;
+    // rest of breeding logic
+}

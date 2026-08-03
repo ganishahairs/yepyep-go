@@ -528,3 +528,10 @@ function breed(uint256 tokenId1, uint256 tokenId2) public {
     lastBred[tokenId2] = block.timestamp;
     // rest of breeding logic
 }
+
+### Set Breeding Cost
+
+```solidity
+function setBreedingCost(uint256 newCost) public onlyOwner {
+    breedingCost = newCost;
+}

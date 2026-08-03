@@ -500,3 +500,15 @@ function toggleStakingPause() public onlyOwner {
 function claimReward(uint256 tokenId) public noReentrant {
     // claim logic
 }
+
+### Learning Milestones
+
+So far you have practiced:
+
+- Structs, mappings and enums  
+- Events  
+- Access control  
+- Payable functions  
+- NFT standards  
+- Staking mechanics  
+- Basic security patterns  

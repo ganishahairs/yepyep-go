@@ -535,3 +535,20 @@ function breed(uint256 tokenId1, uint256 tokenId2) public {
 function setBreedingCost(uint256 newCost) public onlyOwner {
     breedingCost = newCost;
 }
+
+### Generating Attributes on Mint
+
+```solidity
+function mint() public payable {
+    // existing checks...
+    
+    tokenAttributes[nextTokenId] = Attributes({
+        strength: uint8((block.timestamp + nextTokenId) % 10) + 1,
+        agility: uint8((block.timestamp + nextTokenId * 2) % 10) + 1,
+        intelligence: uint8((block.timestamp + nextTokenId * 3) % 10) + 1
+    });
+    
+    ownerOf[nextTokenId] = msg.sender;
+    balanceOf[msg.sender] += 1;
+    nextTokenId++;
+}

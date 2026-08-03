@@ -493,3 +493,10 @@ function getTotalRewardsDistributed() public view returns (uint256) {
 function toggleStakingPause() public onlyOwner {
     stakingPaused = !stakingPaused;
 }
+
+### Protecting Withdraw
+
+```solidity
+function claimReward(uint256 tokenId) public noReentrant {
+    // claim logic
+}

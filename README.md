@@ -479,3 +479,10 @@ function unstake(uint256 tokenId) public {
     totalStaked -= 1;
     stakedCount[msg.sender] -= 1;
 }
+
+### Get Total Rewards Distributed
+
+```solidity
+function getTotalRewardsDistributed() public view returns (uint256) {
+    return totalRewardsDistributed;
+}

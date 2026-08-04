@@ -666,3 +666,17 @@ function supportsInterface(bytes4 interfaceId) public pure returns (bool) {
         interfaceId == 0x2a55205a || // ERC2981
         interfaceId == 0x01ffc9a7;    // ERC165
 }
+
+### Code Organization Tips
+
+As the contract grows it is a good idea to organize the code into sections:
+
+- State variables  
+- Events  
+- Modifiers  
+- Constructor  
+- Minting functions  
+- Staking functions  
+- Marketplace functions  
+- Admin functions  
+- View functions  

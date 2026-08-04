@@ -630,3 +630,15 @@ function acceptOffer(uint256 tokenId) public {
 
     payable(msg.sender).transfer(offer.price);
 }
+
+### Get Offer Info
+
+```solidity
+function getOfferInfo(uint256 tokenId) public view returns (
+    address buyer,
+    uint256 price,
+    bool active
+) {
+    Offer memory offer = offers[tokenId];
+    return (offer.buyer, offer.price, offer.active);
+}

@@ -613,3 +613,20 @@ function cancelListing(uint256 tokenId) public {
     listings[tokenId].active = false;
     emit ListingCancelled(tokenId, msg.sender);
 }
+### Accept Offer
+
+```solidity
+function acceptOffer(uint256 tokenId) public {
+    Offer memory offer = offers[tokenId];
+    require(ownerOf[tokenId] == msg.sender, "Not the owner");
+    require(offer.active, "No active offer");
+
+    offers[tokenId].active = false;
+
+    // Transfer NFT to buyer
+    ownerOf[tokenId] = offer.buyer;
+    balanceOf[msg.sender] -= 1;
+    balanceOf[offer.buyer] += 1;
+
+    payable(msg.sender).transfer(offer.price);
+}

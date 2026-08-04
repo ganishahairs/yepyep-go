@@ -595,3 +595,11 @@ function cancelListing(uint256 tokenId) public {
     require(listings[tokenId].seller == msg.sender, "Not the seller");
     listings[tokenId].active = false;
 }
+
+### Set Marketplace Fee
+
+```solidity
+function setMarketplaceFee(uint256 newFee) public onlyOwner {
+    require(newFee <= 10, "Fee too high");
+    marketplaceFee = newFee;
+}

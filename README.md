@@ -603,3 +603,13 @@ function setMarketplaceFee(uint256 newFee) public onlyOwner {
     require(newFee <= 10, "Fee too high");
     marketplaceFee = newFee;
 }
+### Cancel Listing Event
+
+```solidity
+event ListingCancelled(uint256 indexed tokenId, address indexed seller);
+
+function cancelListing(uint256 tokenId) public {
+    require(listings[tokenId].seller == msg.sender, "Not the seller");
+    listings[tokenId].active = false;
+    emit ListingCancelled(tokenId, msg.sender);
+}

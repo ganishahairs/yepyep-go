@@ -656,3 +656,13 @@ function buyToken(uint256 tokenId) public payable {
     payable(royaltyReceiver).transfer(royaltyAmount);
     payable(item.seller).transfer(sellerAmount);
 }
+### supportsInterface for Royalty
+
+```solidity
+function supportsInterface(bytes4 interfaceId) public pure returns (bool) {
+    return
+        interfaceId == 0x80ac58cd || // ERC721
+        interfaceId == 0x5b5e139f || // ERC721Metadata
+        interfaceId == 0x2a55205a || // ERC2981
+        interfaceId == 0x01ffc9a7;    // ERC165
+}

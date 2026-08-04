@@ -642,3 +642,17 @@ function getOfferInfo(uint256 tokenId) public view returns (
     Offer memory offer = offers[tokenId];
     return (offer.buyer, offer.price, offer.active);
 }
+
+### Applying Royalty on Sale
+
+```solidity
+function buyToken(uint256 tokenId) public payable {
+    // existing checks...
+    
+    uint256 royaltyAmount = (item.price * royaltyPercentage) / 100;
+    uint256 fee = (item.price * marketplaceFee) / 100;
+    uint256 sellerAmount = item.price - royaltyAmount - fee;
+
+    payable(royaltyReceiver).transfer(royaltyAmount);
+    payable(item.seller).transfer(sellerAmount);
+}

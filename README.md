@@ -587,3 +587,11 @@ function calculatePlayerScore(address player) public view returns (uint256) {
     // score += getPowerScore(tokenId) for each token
     return score;
 }
+
+### Cancel Listing
+
+```solidity
+function cancelListing(uint256 tokenId) public {
+    require(listings[tokenId].seller == msg.sender, "Not the seller");
+    listings[tokenId].active = false;
+}

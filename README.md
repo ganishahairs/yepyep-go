@@ -578,3 +578,12 @@ function mint() public payable {
     string memory rarity = getRarity(nextTokenId - 1);
     emit TokenMinted(msg.sender, nextTokenId - 1, rarity);
 }
+### Calculating Player Score from NFTs
+
+```solidity
+function calculatePlayerScore(address player) public view returns (uint256) {
+    uint256 score = 0;
+    // In a full implementation you would loop through the player's tokens
+    // score += getPowerScore(tokenId) for each token
+    return score;
+}

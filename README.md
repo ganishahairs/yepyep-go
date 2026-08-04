@@ -566,3 +566,15 @@ function levelUp(uint256 tokenId) public {
     }
     // same for other attributes
 }
+
+### Rarity on Mint Event
+
+```solidity
+event TokenMinted(address indexed to, uint256 indexed tokenId, string rarity);
+
+function mint() public payable {
+    // existing mint logic...
+    
+    string memory rarity = getRarity(nextTokenId - 1);
+    emit TokenMinted(msg.sender, nextTokenId - 1, rarity);
+}

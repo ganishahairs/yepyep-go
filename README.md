@@ -552,3 +552,17 @@ function mint() public payable {
     balanceOf[msg.sender] += 1;
     nextTokenId++;
 }
+
+### Attribute Cap
+
+```solidity
+uint8 public maxAttributeValue = 50;
+
+function levelUp(uint256 tokenId) public {
+    // existing logic...
+    
+    if (tokenAttributes[tokenId].strength < maxAttributeValue) {
+        tokenAttributes[tokenId].strength += 1;
+    }
+    // same for other attributes
+}

@@ -734,3 +734,14 @@ function mint(string memory uri) public payable whenNotPaused nonReentrant {
     // rest of mint logic
     mintedPerWallet[msg.sender] += 1;
 }
+
+### Managing the Allowlist
+
+```solidity
+function setAllowlist(address user, bool status) public onlyOwner {
+    allowlist[user] = status;
+}
+
+function setAllowlistEnabled(bool status) public onlyOwner {
+    allowlistEnabled = status;
+}

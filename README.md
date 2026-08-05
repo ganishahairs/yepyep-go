@@ -769,3 +769,13 @@ function reveal(string memory newBaseURI) public onlyOwner {
 function isRevealed() public view returns (bool) {
     return revealed;
 }
+
+### Useful Enumerable Functions
+
+With `ERC721Enumerable` you get:
+
+- `totalSupply()`  
+- `tokenByIndex(uint256 index)`  
+- `tokenOfOwnerByIndex(address owner, uint256 index)`  
+
+These make frontend development much easier.

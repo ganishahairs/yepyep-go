@@ -701,3 +701,10 @@ function pause() public onlyOwner {
 function unpause() public onlyOwner {
     _unpause();
 }
+
+### Updating Royalty Info
+
+```solidity
+function setRoyalty(address receiver, uint96 feeNumerator) public onlyOwner {
+    _setDefaultRoyalty(receiver, feeNumerator);
+}

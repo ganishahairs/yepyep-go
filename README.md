@@ -690,3 +690,14 @@ function safeMint(address to, string memory uri) public onlyOwner {
     _safeMint(to, tokenId);
     _setTokenURI(tokenId, uri);
 }
+
+### Pausing with OpenZeppelin
+
+```solidity
+function pause() public onlyOwner {
+    _pause();
+}
+
+function unpause() public onlyOwner {
+    _unpause();
+}

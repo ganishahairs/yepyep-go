@@ -829,3 +829,47 @@ function teamMint(address to, string memory uri) public onlyOwner {
     _safeMint(to, tokenId);
     _setTokenURI(tokenId, uri);
 }
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
+
+import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
+
+contract LevelStakingNFT is ERC721URIStorage, Ownable, ReentrancyGuard {
+    uint256 public nextTokenId;
+    uint256 public maxSupply = 500;
+
+    mapping(uint256 => uint256) public level;
+    mapping(uint256 => bool) public isStaked;
+    mapping(uint256 => uint256) public stakedAt;
+
+    constructor() ERC721("Level Staking NFT", "LSNFT") Ownable(msg.sender) {}
+
+    function mint(string memory uri) external onlyOwner {
+        require(nextTokenId < maxSupply, "Max supply reached");
+        uint256 tokenId = nextTokenId++;
+        level[tokenId] = 1;
+        _safeMint(msg.sender, tokenId);
+        _setTokenURI(tokenId, uri);
+    }
+
+    function stake(uint256 tokenId) external {
+        require(ownerOf(tokenId) == msg.sender, "Not owner");
+        require(!isStaked[tokenId], "Already staked");
+        isStaked[tokenId] = true;
+        stakedAt[tokenId] = block.timestamp;
+    }
+
+    function unstake(uint256 tokenId) external {
+        require(ownerOf(tokenId) == msg.sender, "Not owner");
+        require(isStaked[tokenId], "Not staked");
+        isStaked[tokenId] = false;
+    }
+
+    function levelUp(uint256 tokenId) external {
+        require(ownerOf(tokenId) == msg.sender, "Not owner");
+        require(!isStaked[tokenId], "Token is staked");
+        level[tokenId]++;
+    }
+}

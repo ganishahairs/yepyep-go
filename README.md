@@ -754,3 +754,11 @@ function mint(bytes32[] calldata proof, string memory uri) public payable {
     require(MerkleProof.verify(proof, merkleRoot, leaf), "Invalid proof");
     // rest of mint logic
 }
+
+### Reveal Function
+
+```solidity
+function reveal(string memory newBaseURI) public onlyOwner {
+    revealed = true;
+    // optionally update baseURI here
+}

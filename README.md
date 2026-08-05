@@ -722,3 +722,15 @@ function mint(string memory uri) public payable whenNotPaused nonReentrant {
     _safeMint(msg.sender, tokenId);
     _setTokenURI(tokenId, uri);
 }
+
+### Max Per Wallet
+
+```solidity
+uint256 public maxPerWallet = 5;
+mapping(address => uint256) public mintedPerWallet;
+
+function mint(string memory uri) public payable whenNotPaused nonReentrant {
+    require(mintedPerWallet[msg.sender] < maxPerWallet, "Max per wallet reached");
+    // rest of mint logic
+    mintedPerWallet[msg.sender] += 1;
+}

@@ -708,3 +708,17 @@ function unpause() public onlyOwner {
 function setRoyalty(address receiver, uint96 feeNumerator) public onlyOwner {
     _setDefaultRoyalty(receiver, feeNumerator);
 }
+
+### Mint Function with OpenZeppelin
+
+```solidity
+function mint(string memory uri) public payable whenNotPaused nonReentrant {
+    require(nextTokenId < maxSupply, "Max supply reached");
+    require(msg.value >= mintPrice, "Insufficient payment");
+
+    uint256 tokenId = nextTokenId;
+    nextTokenId++;
+
+    _safeMint(msg.sender, tokenId);
+    _setTokenURI(tokenId, uri);
+}

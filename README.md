@@ -680,3 +680,13 @@ As the contract grows it is a good idea to organize the code into sections:
 - Marketplace functions  
 - Admin functions  
 - View functions  
+
+### Minting with TokenURI
+
+```solidity
+function safeMint(address to, string memory uri) public onlyOwner {
+    uint256 tokenId = nextTokenId;
+    nextTokenId++;
+    _safeMint(to, tokenId);
+    _setTokenURI(tokenId, uri);
+}

@@ -812,3 +812,20 @@ function mint(string memory uri, bytes32[] calldata proof) public payable {
 function getReservedInfo() public view returns (uint256 reserved, uint256 minted, uint256 remaining) {
     return (reservedSupply, reservedMinted, reservedSupply - reservedMinted);
 }
+### Reserved Supply for Team
+
+```solidity
+uint256 public reservedSupply = 50;
+uint256 public reservedMinted = 0;
+
+function teamMint(address to, string memory uri) public onlyOwner {
+    require(reservedMinted < reservedSupply, "Reserved supply exhausted");
+    require(nextTokenId < maxSupply, "Max supply reached");
+
+    uint256 tokenId = nextTokenId;
+    nextTokenId++;
+    reservedMinted++;
+
+    _safeMint(to, tokenId);
+    _setTokenURI(tokenId, uri);
+}

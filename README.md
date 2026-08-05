@@ -779,3 +779,13 @@ With `ERC721Enumerable` you get:
 - `tokenOfOwnerByIndex(address owner, uint256 index)`  
 
 These make frontend development much easier.
+
+### Limiting Batch Size
+
+```solidity
+uint256 public maxBatchSize = 20;
+
+function batchMint(address to, string[] memory uris) public onlyOwner {
+    require(uris.length <= maxBatchSize, "Batch too large");
+    // rest of the logic
+}

@@ -762,3 +762,10 @@ function reveal(string memory newBaseURI) public onlyOwner {
     revealed = true;
     // optionally update baseURI here
 }
+
+### Is Revealed View
+
+```solidity
+function isRevealed() public view returns (bool) {
+    return revealed;
+}

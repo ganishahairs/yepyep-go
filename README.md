@@ -789,3 +789,20 @@ function batchMint(address to, string[] memory uris) public onlyOwner {
     require(uris.length <= maxBatchSize, "Batch too large");
     // rest of the logic
 }
+
+### Phase-Based Mint Logic
+
+```solidity
+function mint(string memory uri, bytes32[] calldata proof) public payable {
+    if (currentPhase == MintPhase.Closed) revert("Mint is closed");
+    
+    if (currentPhase == MintPhase.Allowlist) {
+        // verify merkle proof
+    } else if (currentPhase == MintPhase.Public) {
+        require(msg.value >= mintPrice, "Insufficient payment");
+    } else if (currentPhase == MintPhase.Free) {
+        // free mint logic
+    }
+    
+    // shared mint logic
+}

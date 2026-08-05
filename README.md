@@ -745,3 +745,12 @@ function setAllowlist(address user, bool status) public onlyOwner {
 function setAllowlistEnabled(bool status) public onlyOwner {
     allowlistEnabled = status;
 }
+
+### Verifying Merkle Proof
+
+```solidity
+function mint(bytes32[] calldata proof, string memory uri) public payable {
+    bytes32 leaf = keccak256(abi.encodePacked(msg.sender));
+    require(MerkleProof.verify(proof, merkleRoot, leaf), "Invalid proof");
+    // rest of mint logic
+}

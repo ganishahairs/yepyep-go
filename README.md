@@ -806,3 +806,9 @@ function mint(string memory uri, bytes32[] calldata proof) public payable {
     
     // shared mint logic
 }
+### Reserved Supply View
+
+```solidity
+function getReservedInfo() public view returns (uint256 reserved, uint256 minted, uint256 remaining) {
+    return (reservedSupply, reservedMinted, reservedSupply - reservedMinted);
+}

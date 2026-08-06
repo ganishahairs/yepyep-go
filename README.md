@@ -873,3 +873,59 @@ contract LevelStakingNFT is ERC721URIStorage, Ownable, ReentrancyGuard {
         level[tokenId]++;
     }
 }
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
+
+import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
+
+contract DutchAuctionNFT is ERC721URIStorage, Ownable, ReentrancyGuard {
+    uint256 public nextTokenId;
+    uint256 public maxSupply = 500;
+
+    uint256 public startPrice = 0.2 ether;
+    uint256 public endPrice = 0.02 ether;
+    uint256 public duration = 24 hours;
+    uint256 public startTime;
+
+    bool public auctionStarted;
+
+    constructor() ERC721("Dutch Auction NFT", "DUTCH") Ownable(msg.sender) {}
+
+    function startAuction() external onlyOwner {
+        require(!auctionStarted, "Already started");
+        auctionStarted = true;
+        startTime = block.timestamp;
+    }
+
+    function getCurrentPrice() public view returns (uint256) {
+        if (!auctionStarted) return startPrice;
+        if (block.timestamp >= startTime + duration) return endPrice;
+
+        uint256 elapsed = block.timestamp - startTime;
+        uint256 priceDrop = ((startPrice - endPrice) * elapsed) / duration;
+        return startPrice - priceDrop;
+    }
+
+    function mint(string memory uri) external payable nonReentrant {
+        require(auctionStarted, "Auction not started");
+        require(nextTokenId < maxSupply, "Max supply reached");
+
+        uint256 price = getCurrentPrice();
+        require(msg.value >= price, "Insufficient payment");
+
+        uint256 tokenId = nextTokenId++;
+        _safeMint(msg.sender, tokenId);
+        _setTokenURI(tokenId, uri);
+
+        // Refund excess payment
+        if (msg.value > price) {
+            payable(msg.sender).transfer(msg.value - price);
+        }
+    }
+
+    function withdraw() external onlyOwner {
+        payable(owner()).transfer(address(this).balance);
+    }
+}

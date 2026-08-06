@@ -1274,3 +1274,49 @@ contract GuildMultiSig {
         return transactions.length;
     }
 }
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
+
+import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
+
+contract GuildFaucet is Ownable {
+    using SafeERC20 for IERC20;
+
+    IERC20 public immutable token;
+    uint256 public amountPerClaim;
+    uint256 public cooldown; // en segundos
+    mapping(address => uint256) public lastClaim;
+
+    event Claimed(address indexed user, uint256 amount);
+
+    constructor(address _token, uint256 _amountPerClaim, uint256 _cooldown, address initialOwner) 
+        Ownable(initialOwner) 
+    {
+        token = IERC20(_token);
+        amountPerClaim = _amountPerClaim;
+        cooldown = _cooldown;
+    }
+
+    function claim() external {
+        require(block.timestamp >= lastClaim[msg.sender] + cooldown, "Cooldown active");
+        require(token.balanceOf(address(this)) >= amountPerClaim, "Faucet empty");
+
+        lastClaim[msg.sender] = block.timestamp;
+        token.safeTransfer(msg.sender, amountPerClaim);
+        emit Claimed(msg.sender, amountPerClaim);
+    }
+
+    function setAmountPerClaim(uint256 newAmount) external onlyOwner {
+        amountPerClaim = newAmount;
+    }
+
+    function setCooldown(uint256 newCooldown) external onlyOwner {
+        cooldown = newCooldown;
+    }
+
+    function withdraw(address to, uint256 amount) external onlyOwner {
+        token.safeTransfer(to, amount);
+    }
+}

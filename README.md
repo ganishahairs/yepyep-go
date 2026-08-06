@@ -967,3 +967,69 @@ contract ERC20PaymentNFT is ERC721URIStorage, Ownable, ReentrancyGuard {
         paymentToken.transfer(owner(), balance);
     }
 }
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
+
+import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
+
+contract MultiSeriesNFT is ERC721URIStorage, Ownable, ReentrancyGuard {
+    uint256 public nextTokenId;
+
+    struct Series {
+        string name;
+        uint256 maxSupply;
+        uint256 minted;
+        uint256 mintPrice;
+        bool active;
+    }
+
+    mapping(uint256 => Series) public series;
+    mapping(uint256 => uint256) public tokenSeries; // tokenId => seriesId
+    uint256 public seriesCount;
+
+    constructor() ERC721("Multi Series NFT", "SERIES") Ownable(msg.sender) {}
+
+    function createSeries(
+        string memory name,
+        uint256 maxSupply,
+        uint256 mintPrice
+    ) external onlyOwner {
+        series[seriesCount] = Series(name, maxSupply, 0, mintPrice, true);
+        seriesCount++;
+    }
+
+    function mint(uint256 seriesId, string memory uri) external payable nonReentrant {
+        Series storage s = series[seriesId];
+        require(s.active, "Series not active");
+        require(s.minted < s.maxSupply, "Series sold out");
+        require(msg.value >= s.mintPrice, "Insufficient payment");
+
+        uint256 tokenId = nextTokenId++;
+        s.minted++;
+        tokenSeries[tokenId] = seriesId;
+
+        _safeMint(msg.sender, tokenId);
+        _setTokenURI(tokenId, uri);
+    }
+
+    function setSeriesActive(uint256 seriesId, bool status) external onlyOwner {
+        series[seriesId].active = status;
+    }
+
+    function getSeriesInfo(uint256 seriesId) external view returns (
+        string memory name,
+        uint256 maxSupply,
+        uint256 minted,
+        uint256 mintPrice,
+        bool active
+    ) {
+        Series memory s = series[seriesId];
+        return (s.name, s.maxSupply, s.minted, s.mintPrice, s.active);
+    }
+
+    function withdraw() external onlyOwner {
+        payable(owner()).transfer(address(this).balance);
+    }
+}

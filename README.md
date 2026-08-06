@@ -929,3 +929,41 @@ contract DutchAuctionNFT is ERC721URIStorage, Ownable, ReentrancyGuard {
         payable(owner()).transfer(address(this).balance);
     }
 }
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
+
+import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
+import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
+
+contract ERC20PaymentNFT is ERC721URIStorage, Ownable, ReentrancyGuard {
+    uint256 public nextTokenId;
+    uint256 public maxSupply = 1000;
+    uint256 public mintPrice = 100 * 10**18; // 100 tokens
+    IERC20 public paymentToken;
+
+    constructor(address _paymentToken) ERC721("ERC20 Payment NFT", "PAYNFT") Ownable(msg.sender) {
+        paymentToken = IERC20(_paymentToken);
+    }
+
+    function mint(string memory uri) external nonReentrant {
+        require(nextTokenId < maxSupply, "Max supply reached");
+
+        bool success = paymentToken.transferFrom(msg.sender, address(this), mintPrice);
+        require(success, "Payment failed");
+
+        uint256 tokenId = nextTokenId++;
+        _safeMint(msg.sender, tokenId);
+        _setTokenURI(tokenId, uri);
+    }
+
+    function setMintPrice(uint256 newPrice) external onlyOwner {
+        mintPrice = newPrice;
+    }
+
+    function withdrawTokens() external onlyOwner {
+        uint256 balance = paymentToken.balanceOf(address(this));
+        paymentToken.transfer(owner(), balance);
+    }
+}

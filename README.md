@@ -1320,3 +1320,45 @@ contract GuildFaucet is Ownable {
         token.safeTransfer(to, amount);
     }
 }
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
+
+import "@openzeppelin/contracts/access/Ownable.sol";
+
+contract GuildWhitelist is Ownable {
+    mapping(address => bool) public isWhitelisted;
+    uint256 public whitelistCount;
+
+    event Added(address indexed account);
+    event Removed(address indexed account);
+
+    constructor(address initialOwner) Ownable(initialOwner) {}
+
+    function add(address account) external onlyOwner {
+        require(!isWhitelisted[account], "Already whitelisted");
+        isWhitelisted[account] = true;
+        whitelistCount++;
+        emit Added(account);
+    }
+
+    function addBatch(address[] calldata accounts) external onlyOwner {
+        for (uint256 i = 0; i < accounts.length; i++) {
+            if (!isWhitelisted[accounts[i]]) {
+                isWhitelisted[accounts[i]] = true;
+                whitelistCount++;
+                emit Added(accounts[i]);
+            }
+        }
+    }
+
+    function remove(address account) external onlyOwner {
+        require(isWhitelisted[account], "Not whitelisted");
+        isWhitelisted[account] = false;
+        whitelistCount--;
+        emit Removed(account);
+    }
+
+    function isAllowed(address account) external view returns (bool) {
+        return isWhitelisted[account];
+    }
+}

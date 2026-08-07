@@ -1402,3 +1402,68 @@ contract GuildVault {
         return balances[user];
     }
 }
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
+
+import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
+import "@openzeppelin/contracts/token/ERC721/utils/ERC721Holder.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
+
+contract GuildNFTStaking is ERC721Holder, Ownable {
+    IERC721 public immutable nft;
+    
+    struct StakeInfo {
+        uint256 tokenId;
+        uint256 stakedAt;
+        bool active;
+    }
+
+    mapping(address => StakeInfo) public stakes;
+    mapping(address => uint256) public points; // puntos acumulados
+    uint256 public pointsPerDay = 10;
+
+    event Staked(address indexed user, uint256 tokenId);
+    event Unstaked(address indexed user, uint256 tokenId, uint256 earnedPoints);
+
+    constructor(address _nft, address initialOwner) Ownable(initialOwner) {
+        nft = IERC721(_nft);
+    }
+
+    function stake(uint256 tokenId) external {
+        require(!stakes[msg.sender].active, "Already staking");
+        nft.safeTransferFrom(msg.sender, address(this), tokenId);
+
+        stakes[msg.sender] = StakeInfo({
+            tokenId: tokenId,
+            stakedAt: block.timestamp,
+            active: true
+        });
+
+        emit Staked(msg.sender, tokenId);
+    }
+
+    function unstake() external {
+        StakeInfo storage info = stakes[msg.sender];
+        require(info.active, "Not staking");
+
+        uint256 daysStaked = (block.timestamp - info.stakedAt) / 1 days;
+        uint256 earned = daysStaked * pointsPerDay;
+        points[msg.sender] += earned;
+
+        info.active = false;
+        nft.safeTransferFrom(address(this), msg.sender, info.tokenId);
+
+        emit Unstaked(msg.sender, info.tokenId, earned);
+    }
+
+    function setPointsPerDay(uint256 newAmount) external onlyOwner {
+        pointsPerDay = newAmount;
+    }
+
+    function getEarnedPoints(address user) external view returns (uint256) {
+        StakeInfo memory info = stakes[user];
+        if (!info.active) return points[user];
+        uint256 daysStaked = (block.timestamp - info.stakedAt) / 1 days;
+        return points[user] + (daysStaked * pointsPerDay);
+    }
+}
